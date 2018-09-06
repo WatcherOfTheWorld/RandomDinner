@@ -1,16 +1,17 @@
 # random
-# Still Under Constraction
+# Still Under Construction
 
-### do konw what to eat for today's dinner? \n try this app to help you make the choice
+### do know what to eat for today's dinner? \n try this app to help you make the choice
 
 
 # TO-DO List
 ## near future
-entry screen
-random algorithm
-database
+-[x]first screen
+-[ ]entry screen
+-[ ]random algorithm
+-[ ]database
 
 ## planning
-search bar
-setting meun
+-[ ]search bar
+-[ ]setting menu
 ...
