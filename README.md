@@ -6,7 +6,11 @@
 
 # TO-DO List
 ## near future
-### entry screen\nrandom algorithm\ndatabase
+entry screen
+random algorithm
+database
 
 ## planning
-### search bar\nsetting meun\n...
+search bar
+setting meun
+...
