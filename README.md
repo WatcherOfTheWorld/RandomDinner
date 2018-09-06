@@ -6,12 +6,12 @@
 
 # TO-DO List
 ## near future
--[x]first screen
--[ ]entry screen
--[ ]random algorithm
--[ ]database
+- [x] first screen
+- [ ] entry screen
+- [ ] random algorithm
+- [ ] database
 
 ## planning
--[ ]search bar
--[ ]setting menu
+- [ ] search bar
+- [ ] setting menu
 ...
