@@ -1,20 +1,22 @@
 package xyz.codem.randomdinner;
 
+import android.util.Log;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DinnerArray {
+public class DinnerArray implements Serializable{
     private List<String> allChoose = new ArrayList<>();
     private String lastResult = "never used";
     private String lastTime = "never used";
     private String name = "Unnamed";
 
-    public DinnerArray(List<String> entry){
-        allChoose = entry;
+    public DinnerArray(){
     }
 
-    public String[] getAllEntry(){
-        return (String[]) allChoose.toArray();
+    public List<String> getAllEntry(){
+        return allChoose;
     }
 
     public void addEntry(String oneEntry){

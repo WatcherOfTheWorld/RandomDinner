@@ -14,25 +14,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListFragment extends Fragment {
+public class ItemFragment extends Fragment {
     private RecyclerView recyclerView;
     private DinnerAdapter mAdapter;
-    DinnerList dinnerList;
+    DinnerArray dinners;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        dinnerList = new DinnerList();
-        List<String> list = new ArrayList<>();
-        list.add("item1");
-        list.add("item2");
-        list.add("项目3");
-        DinnerArray dinners = new DinnerArray();
-        dinners.addEntry("item1");
-        dinners.addEntry("item2");
-        dinners.addEntry("item3");
-        dinnerList.addNewArray(dinners);
-        dinnerList.addNewArray(new DinnerArray());
+        Log.d("0","启动");
+        Log.d("size",dinners.getAllEntry().size()+"");
 
 
         View view = inflater.inflate(R.layout.activity_main, container, false);
@@ -47,51 +38,46 @@ public class ListFragment extends Fragment {
     }
 
     private void updateUI() {
+        List<String> dinner = dinners.getAllEntry();
+        Log.d("list",dinner.size()+"");
 
-        List<DinnerArray> dinners = dinnerList.getEntry();
-        Log.d("list",dinners.size()+"");
-
-        mAdapter = new DinnerAdapter(dinners);
+        mAdapter = new DinnerAdapter(dinner);
         recyclerView.setAdapter(mAdapter);
     }
 
 
-    private class DinnerHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class DinnerHolder extends RecyclerView.ViewHolder{
+            //implements View.OnClickListener {
         private TextView mTitle;
-        private TextView mLastDate;
-        private TextView mLastResult;
-        private DinnerArray dinners;
+//        private String dinner;
 
         public DinnerHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.activity_entry_fragment, parent, false));
-            itemView.setOnClickListener(this);
+            super(inflater.inflate(R.layout.activity_single_choice, parent, false));
+            //itemView.setOnClickListener(this);
             mTitle = (TextView) itemView.findViewById(R.id.item_name);
-            mLastDate = (TextView) itemView.findViewById(R.id.last_time);
-            mLastResult = (TextView) itemView.findViewById(R.id.last_result);
         }
 
-        public void bind(DinnerArray dinners) {
-            this.dinners = dinners;
-            mTitle.setText(dinners.getName());
-            mLastResult.setText(dinners.getLastResult());
-            mLastDate.setText(dinners.getLastTime());
-        }
+        public void bind(String dinner) {
+            mTitle.setText(dinner);
 
-        @Override
-        public void onClick(View v) {
-            Log.d("0","启动活动");
-            Intent intent = new Intent(getActivity(),entryActivity.class);
-            intent.putExtra("data", dinners);
-            startActivity(intent);
         }
+//
+//        @Override
+//        public void onClick(View v) {
+//            Log.d("0","启动活动");
+//            Intent intent = new Intent(getActivity(),entryActivity.class);
+//            intent.putExtra("data", dinners);
+//            startActivity(intent);
+//        }
     }
 
     private class DinnerAdapter extends RecyclerView.Adapter<DinnerHolder> {
 
-        private List<DinnerArray> mDinners;
+        private List<String> mDinners;
 
-        public DinnerAdapter(List<DinnerArray> dinners) {
+        public DinnerAdapter(List<String> dinners) {
             mDinners = dinners;
+            Log.d("size",dinners.size()+"");
         }
 
         @Override
@@ -109,6 +95,8 @@ public class ListFragment extends Fragment {
 
         @Override
         public int getItemCount() {
+            Log.d("size",mDinners.size()+"");
+
             return mDinners.size();
         }
     }
