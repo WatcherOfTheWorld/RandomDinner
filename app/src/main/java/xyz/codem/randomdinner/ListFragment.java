@@ -1,5 +1,6 @@
 package xyz.codem.randomdinner;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,7 +23,7 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        dinnerList = new DinnerList();
+        dinnerList = DinnerList.get(getActivity());
         List<String> list = new ArrayList<>();
         list.add("item1");
         list.add("item2");
@@ -74,7 +75,7 @@ public class ListFragment extends Fragment {
             this.dinners = dinners;
             mTitle.setText(dinners.getName());
             mLastResult.setText(dinners.getLastResult());
-            mLastDate.setText(dinners.getLastTime());
+            mLastDate.setText(dinners.getLastTime().toString());
         }
 
         @Override
