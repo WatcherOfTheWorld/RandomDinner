@@ -1,7 +1,11 @@
 package xyz.codem.randomdinner;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +23,7 @@ public class ItemFragment extends Fragment {
     private RecyclerView recyclerView;
     private DinnerAdapter mAdapter;
     DinnerArray dinners;
+    private static int REQUEST = 1;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +57,18 @@ public class ItemFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.d("0","启动");
         Log.d("size",dinners.getAllEntry().size()+"");
-
-
         View view = inflater.inflate(R.layout.activity_main, container, false);
+        FloatingActionButton fab=  view.findViewById(R.id.add);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //dinnerList.addNewArray(new DinnerArray());
+                FragmentManager manager = getFragmentManager();
+                NamePickerFragment dialog = NamePickerFragment.newInstance("Add a Entry");
+                dialog.setTargetFragment(ItemFragment.this,1);
+                dialog.show(manager, "");
+            }
+        });
 
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -69,6 +83,18 @@ public class ItemFragment extends Fragment {
 
         mAdapter = new DinnerAdapter(dinner);
         recyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode != Activity.RESULT_OK){
+            return;
+        }
+        if(requestCode == REQUEST){
+            DinnerArray array = new DinnerArray();
+            array.addEntry((String)data.getSerializableExtra("name"));
+            updateUI();
+        }
     }
 
 

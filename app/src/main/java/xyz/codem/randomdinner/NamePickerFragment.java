@@ -30,7 +30,7 @@ public class NamePickerFragment extends DialogFragment {
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.dailog, null);
         text = v.findViewById(R.id.editText);
         dialog =  new AlertDialog.Builder(getActivity()).setView(v).
-                setTitle("Add a set").
+                setTitle(caller).
                 setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -26,6 +26,7 @@ import java.util.List;
 public class ListFragment extends Fragment{
     private RecyclerView recyclerView;
     private DinnerAdapter mAdapter;
+    private static int REQUEST = 0;
     DinnerList dinnerList;
 
 
@@ -70,16 +71,6 @@ public class ListFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         dinnerList = DinnerList.get(getActivity());
-//        List<String> list = new ArrayList<>();
-//        list.add("item1");
-//        list.add("item2");
-//        list.add("项目3");
-//        DinnerArray dinners = new DinnerArray();
-//        dinners.addEntry("item1");
-//        dinners.addEntry("item2");
-//        dinners.addEntry("item3");
-//        dinnerList.addNewArray(dinners);
-//        dinnerList.addNewArray(new DinnerArray());
         View view = inflater.inflate(R.layout.activity_main, container, false);
 
         FloatingActionButton fab=  view.findViewById(R.id.add);
@@ -88,8 +79,8 @@ public class ListFragment extends Fragment{
             public void onClick(View v) {
                 //dinnerList.addNewArray(new DinnerArray());
                 FragmentManager manager = getFragmentManager();
-                NamePickerFragment dialog = NamePickerFragment.newInstance("Add a set");
-                dialog.setTargetFragment(ListFragment.this,0);
+                NamePickerFragment dialog = NamePickerFragment.newInstance("Add a Set");
+                dialog.setTargetFragment(ListFragment.this,REQUEST);
                 dialog.show(manager, "");
             }
         });
@@ -116,7 +107,7 @@ public class ListFragment extends Fragment{
         if(resultCode != Activity.RESULT_OK){
             return;
         }
-        if(requestCode == 0){
+        if(requestCode == REQUEST){
             DinnerArray array = new DinnerArray();
             array.setName((String)data.getSerializableExtra("name"));
             DinnerList.get(getContext()).addNewArray(array);
