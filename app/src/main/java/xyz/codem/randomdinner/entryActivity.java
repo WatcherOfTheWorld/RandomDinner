@@ -12,10 +12,8 @@ import android.widget.TextView;
 
 public class entryActivity extends AppCompatActivity {
     TextView result;
-    //@Override
     protected Fragment createFragment(DinnerArray array) {
         ItemFragment item = new ItemFragment();
-        Log.d("0","准备启动");
         item.dinners = array;
 
         return item;
@@ -37,7 +35,7 @@ public class entryActivity extends AppCompatActivity {
                     .add(R.id.fragment_container, fragment)
                     .commit();
         }
-        result = (TextView) findViewById(R.id.result);
+        result = findViewById(R.id.result);
         result.setText(data.getLastResult());
     }
 

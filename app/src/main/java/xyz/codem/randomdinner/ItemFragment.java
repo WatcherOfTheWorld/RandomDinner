@@ -1,23 +1,51 @@
 package xyz.codem.randomdinner;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ItemFragment extends Fragment {
     private RecyclerView recyclerView;
     private DinnerAdapter mAdapter;
     DinnerArray dinners;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.entry_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.edit:
+                // TODO: do something
+                return true;
+            case R.id.delete:
+                DinnerList list = DinnerList.get(getContext());
+                list.removeArray(dinners);
+                getActivity().finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,10 +56,8 @@ public class ItemFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.activity_main, container, false);
 
-        recyclerView = (RecyclerView) view
-                .findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         updateUI();
 
         return view;
@@ -47,28 +73,17 @@ public class ItemFragment extends Fragment {
 
 
     private class DinnerHolder extends RecyclerView.ViewHolder{
-            //implements View.OnClickListener {
         private TextView mTitle;
-//        private String dinner;
 
         public DinnerHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.activity_single_choice, parent, false));
-            //itemView.setOnClickListener(this);
-            mTitle = (TextView) itemView.findViewById(R.id.item_name);
+            mTitle = itemView.findViewById(R.id.item_name);
         }
 
         public void bind(String dinner) {
             mTitle.setText(dinner);
 
         }
-//
-//        @Override
-//        public void onClick(View v) {
-//            Log.d("0","启动活动");
-//            Intent intent = new Intent(getActivity(),entryActivity.class);
-//            intent.putExtra("data", dinners);
-//            startActivity(intent);
-//        }
     }
 
     private class DinnerAdapter extends RecyclerView.Adapter<DinnerHolder> {

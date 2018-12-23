@@ -36,6 +36,5 @@ public class mCursorWrapper extends CursorWrapper {
         }
 
         return dinners;
-        //return crime;
     }
 }

@@ -1,9 +1,6 @@
 package xyz.codem.randomdinner;
 
-import android.util.Log;
-
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -76,6 +73,13 @@ public class DinnerArray implements Serializable{
 
     public Date getLastTime() {
         return lastTime;
+    }
+
+    public String getTimeString(){
+        if(lastTime.getTime()==0){
+            return "never used";
+        }
+        return  "Last Used: "+lastTime.toString();
     }
 
     public String getName() {
