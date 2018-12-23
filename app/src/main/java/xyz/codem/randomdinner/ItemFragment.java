@@ -10,9 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -23,50 +20,65 @@ public class ItemFragment extends Fragment {
     private RecyclerView recyclerView;
     private DinnerAdapter mAdapter;
     DinnerArray dinners;
+    TextView result;
+    FloatingActionButton fab;
     private static int REQUEST = 1;
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.entry_menu, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.edit:
-                // TODO: do something
-                return true;
-            case R.id.delete:
-                DinnerList list = DinnerList.get(getContext());
-                list.removeArray(dinners);
-                getActivity().finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setHasOptionsMenu(true);
+//    }
+//
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+//        inflater.inflate(R.menu.entry_menu, menu);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()){
+////            case R.id.edit:
+////                // do something
+////                return true;
+//            case R.id.delete:
+//                DinnerList list = DinnerList.get(getContext());
+//                list.removeArray(dinners);
+//                getActivity().finish();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         Log.d("0","启动");
         Log.d("size",dinners.getAllEntry().size()+"");
         View view = inflater.inflate(R.layout.activity_main, container, false);
-        FloatingActionButton fab=  view.findViewById(R.id.add);
+        FloatingActionButton newfab=  view.findViewById(R.id.add);
+        newfab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //dinnerList.addNewArray(new DinnerArray());
                 FragmentManager manager = getFragmentManager();
                 NamePickerFragment dialog = NamePickerFragment.newInstance("Add a Entry");
                 dialog.setTargetFragment(ItemFragment.this,1);
                 dialog.show(manager, "");
+            }
+        });
+
+
+
+        fab.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(dinners.getAllEntry().size() != 0) {
+                    result.setText(dinners.getRandomItem());
+                }
+                return true;
             }
         });
 
@@ -91,8 +103,7 @@ public class ItemFragment extends Fragment {
             return;
         }
         if(requestCode == REQUEST){
-            DinnerArray array = new DinnerArray();
-            array.addEntry((String)data.getSerializableExtra("name"));
+            dinners.addEntry((String)data.getSerializableExtra("name"));
             updateUI();
         }
     }

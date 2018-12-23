@@ -2,6 +2,7 @@ package xyz.codem.randomdinner;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -51,20 +52,32 @@ public class DinnerArray implements Serializable{
     }
 
     public void addEntry(String oneEntry){
+        DinnerList list = DinnerList.get(null);
+        list.removeArray(this);
         allChoose.add(oneEntry);
+        list.addNewArray(this);
     }
 
     public void removeEntry(String oneEntry){
         for(int i = 0; i < allChoose.size(); i++ ){
             if(allChoose.get(i).equals(oneEntry)){
+                DinnerList list = DinnerList.get(null);
+                list.removeArray(this);
                 allChoose.remove(i);
+                list.addNewArray(this);
                 return;
             }
         }
     }
 
     public String getRandomItem(){
-        return "";
+        int num =(int)(Math.random() * allChoose.size());
+        DinnerList list = DinnerList.get(null);
+        list.removeArray(this);
+        lastResult = allChoose.get(num);
+        lastTime = new Date(System.currentTimeMillis());
+        list.addNewArray(this);
+        return lastResult;
     }
 
     public String getLastResult() {

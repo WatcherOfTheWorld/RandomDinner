@@ -52,7 +52,7 @@ public class DinnerList {
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                arrays.add(cursor.getItems());
+                arrays.add(0, cursor.getItems());
                 cursor.moveToNext();
             }
         }finally {
