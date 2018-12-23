@@ -7,9 +7,9 @@
 # TO-DO List
 ## near future
 - [x] first screen
-- [ ] entry screen
-- [ ] random algorithm
-- [ ] database
+- [x] entry screen
+- [x] random algorithm
+- [x] database
 
 ## planning
 - [ ] search bar
