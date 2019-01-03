@@ -24,33 +24,6 @@ public class ItemFragment extends Fragment {
     FloatingActionButton fab;
     private static int REQUEST = 1;
 
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
-//    }
-//
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.entry_menu, menu);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()){
-////            case R.id.edit:
-////                // do something
-////                return true;
-//            case R.id.delete:
-//                DinnerList list = DinnerList.get(getContext());
-//                list.removeArray(dinners);
-//                getActivity().finish();
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -109,17 +82,25 @@ public class ItemFragment extends Fragment {
     }
 
 
-    private class DinnerHolder extends RecyclerView.ViewHolder{
+    private class DinnerHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
         private TextView mTitle;
 
         public DinnerHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.activity_single_choice, parent, false));
+            itemView.setOnLongClickListener(this);
             mTitle = itemView.findViewById(R.id.item_name);
+
         }
 
         public void bind(String dinner) {
             mTitle.setText(dinner);
+        }
 
+        @Override
+        public boolean onLongClick(View v) {
+            dinners.removeEntry(mTitle.getText().toString());
+            updateUI();
+            return true;
         }
     }
 
@@ -148,7 +129,6 @@ public class ItemFragment extends Fragment {
         @Override
         public int getItemCount() {
             Log.d("size",mDinners.size()+"");
-
             return mDinners.size();
         }
     }

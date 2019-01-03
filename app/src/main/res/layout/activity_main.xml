@@ -16,6 +16,6 @@
     android:src="@drawable/ic_action_add"
     app:fabSize="normal"
     app:layout_anchor="@+id/recycler_view"
-    android:layout_margin="32dp"
+    android:layout_margin="16dp"
     app:layout_anchorGravity="right|bottom" />
 </android.support.design.widget.CoordinatorLayout>

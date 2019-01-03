@@ -1,9 +1,7 @@
 package xyz.codem.randomdinner;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -31,6 +29,7 @@ public class entryActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
+                return true;
             case R.id.delete:
                 DinnerList list = DinnerList.get(getApplicationContext());
                 list.removeArray(dinners);
@@ -70,8 +69,8 @@ public class entryActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //this line shows back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(data.getName());
 
-        toolbar.setTitle(data.getName());
         if (fragment == null) {
             fragment = createFragment(data);
             fm.beginTransaction()
