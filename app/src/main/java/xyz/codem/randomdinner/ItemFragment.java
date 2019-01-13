@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -99,6 +100,7 @@ public class ItemFragment extends Fragment {
         @Override
         public boolean onLongClick(View v) {
             dinners.removeEntry(mTitle.getText().toString());
+            Snackbar.make(getActivity().findViewById(R.id.activity_single_entry_layout), "removed", Snackbar.LENGTH_SHORT).show();
             updateUI();
             return true;
         }

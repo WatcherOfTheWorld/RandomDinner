@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class entryActivity extends AppCompatActivity {
@@ -22,6 +23,7 @@ public class entryActivity extends AppCompatActivity {
         item.dinners = array;
         item.result = result;
         item.fab = fab;
+        item.view=getWindow().getDecorView();
         return item;
     }
 
@@ -54,7 +56,6 @@ public class entryActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 //        getSupportActionBar().hide();
-
         Intent intent = getIntent();
 
         DinnerArray data = (DinnerArray) intent.getSerializableExtra("data");
@@ -70,7 +71,6 @@ public class entryActivity extends AppCompatActivity {
         //this line shows back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(data.getName());
-
         if (fragment == null) {
             fragment = createFragment(data);
             fm.beginTransaction()
